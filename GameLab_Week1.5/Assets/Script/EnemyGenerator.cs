@@ -29,6 +29,7 @@ public class EnemyGenerator : MonoBehaviour
         Vector3 enemyPos = new Vector3(transform.localPosition.x, randY, randZ);
         GameObject enemy = Instantiate(enemyPrefab, enemyPos, Quaternion.identity);
         enemy.GetComponent<EnemyMoving>().SetRealPosition(enemyPos);
+        enemy.transform.parent = transform;
         yield return new WaitForSeconds(genCoolTime);
         coolTime = false;
     }

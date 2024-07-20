@@ -21,7 +21,7 @@ public class PlayerControl : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         Move();
     }
@@ -34,21 +34,21 @@ public class PlayerControl : MonoBehaviour
 
         if(viewState == CamManager.ViewState.Top)
         {
-            if(Input.GetKey(KeyCode.UpArrow))
+            if(Input.GetKey(KeyCode.W))
             {
                 movementLeftRight = transform.right;
             }
-            else if(Input.GetKey(KeyCode.DownArrow))
+            else if(Input.GetKey(KeyCode.S))
             {
                 movementLeftRight = -transform.right;
             }
-            if(Input.GetKey(KeyCode.LeftArrow))
+            if(Input.GetKey(KeyCode.A))
             {
                 
                 movementForwardBackward = transform.forward;
                 
             }
-            else if(Input.GetKey(KeyCode.RightArrow))
+            else if(Input.GetKey(KeyCode.D))
             {
                 movementForwardBackward = -transform.forward;
             }
@@ -58,19 +58,19 @@ public class PlayerControl : MonoBehaviour
 
         else if(viewState == CamManager.ViewState.Side)
         {
-            if(Input.GetKey(KeyCode.UpArrow))
+            if(Input.GetKey(KeyCode.W))
             {
                 movementUpDown = transform.up;
             }
-            else if(Input.GetKey(KeyCode.DownArrow))
+            else if(Input.GetKey(KeyCode.S))
             {
                 movementUpDown = -transform.up;
             }
-            if(Input.GetKey(KeyCode.LeftArrow))
+            if(Input.GetKey(KeyCode.A))
             {
                 movementLeftRight = -transform.right;
             }
-            else if(Input.GetKey(KeyCode.RightArrow))
+            else if(Input.GetKey(KeyCode.D))
             {
                 
                 movementLeftRight = transform.right;
@@ -79,19 +79,19 @@ public class PlayerControl : MonoBehaviour
 
         else if(viewState == CamManager.ViewState.Front)
         {
-            if(Input.GetKey(KeyCode.UpArrow))
+            if(Input.GetKey(KeyCode.W))
             {
                 movementUpDown = transform.up;
             }
-            else if(Input.GetKey(KeyCode.DownArrow))
+            else if(Input.GetKey(KeyCode.S))
             {
                 movementUpDown = -transform.up;
             }
-            if(Input.GetKey(KeyCode.LeftArrow))
+            if(Input.GetKey(KeyCode.A))
             {
                 movementForwardBackward = transform.forward;
             }
-            else if(Input.GetKey(KeyCode.RightArrow))
+            else if(Input.GetKey(KeyCode.D))
             {
                 movementForwardBackward = -transform.forward;
             }
@@ -132,16 +132,16 @@ public class PlayerControl : MonoBehaviour
         if(viewState == CamManager.ViewState.Front)
         {
             transform.GetChild(4).gameObject.SetActive(false);
-            transform.GetChild(5).gameObject.SetActive(false);
+            /*transform.GetChild(5).gameObject.SetActive(false);
             transform.GetChild(6).gameObject.SetActive(false);
-            transform.GetChild(7).gameObject.SetActive(false);
+            transform.GetChild(7).gameObject.SetActive(false);*/
         }
         else
         {
             transform.GetChild(4).gameObject.SetActive(true);
-            transform.GetChild(5).gameObject.SetActive(true);
+            /*transform.GetChild(5).gameObject.SetActive(true);
             transform.GetChild(6).gameObject.SetActive(true);
-            transform.GetChild(7).gameObject.SetActive(true);
+            transform.GetChild(7).gameObject.SetActive(true);*/
         }   
     }
 }

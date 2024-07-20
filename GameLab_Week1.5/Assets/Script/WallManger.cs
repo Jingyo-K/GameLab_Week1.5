@@ -14,7 +14,7 @@ public class WallManger : MonoBehaviour
     {
         mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
         camSys = mainCamera.GetComponent<Camera>();
-        mainCamera.transform.position = new Vector3(0, 0, -wallSize*17.5f);
+        mainCamera.transform.position = new Vector3(0, 0, -wallSize*16f);
         camSys.orthographicSize = wallSize*10;
         MakeWall();
         MakeTransparent();

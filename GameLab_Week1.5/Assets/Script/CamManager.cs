@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -34,17 +35,28 @@ public class CamManager : MonoBehaviour
     {
         if(!isOrbiting)
         {
-            if(Input.GetKeyDown(KeyCode.Q))
+            /*if(Input.GetKeyDown(KeyCode.Q))
             {
                 StartCoroutine(MoveCamera(0));
-            }
-            if(Input.GetKeyDown(KeyCode.W))
+            }*/
+            /*if(Input.GetKeyDown(KeyCode.W))
             {
                 StartCoroutine(MoveCamera(1));
-            }
-            if(Input.GetKeyDown(KeyCode.E))
+            }*/
+            if(Input.GetKeyDown(KeyCode.Space))
             {
-                StartCoroutine(MoveCamera(2));
+                if(viewState == ViewState.Front)
+                {
+                    StartCoroutine(MoveCamera(2));
+                }
+                else if(viewState == ViewState.Side)
+                {
+                    StartCoroutine(MoveCamera(1));
+                }
+            }
+            if (Input.GetKeyDown(KeyCode.LeftShift))
+            {
+                Time.timeScale += 0.1f;
             }
         }
     }
@@ -54,6 +66,7 @@ public class CamManager : MonoBehaviour
         gameEvents = GameManager.instance.gameEvents;
         isOrbiting = true;
         float rotProgress = 0;
+        float curTimeScale = Time.timeScale;
         Time.timeScale = 0.0f;
         if(dir == 0) //going to topview
         {
@@ -124,8 +137,8 @@ public class CamManager : MonoBehaviour
                 }
                 viewState = ViewState.Top;
                 gameEvents.CallCameraStop();
-            }
-            StartCoroutine(ToOrtho());          
+            }        
+            transform.position = new Vector3(0, 80, 0);
         }
 
         else if(dir == 1) //going to frontview
@@ -184,7 +197,7 @@ public class CamManager : MonoBehaviour
                 viewState = ViewState.Front;
                 gameEvents.CallCameraStop();
             }
-            StartCoroutine(ToPersPec());           
+            transform.position = new Vector3(-80, 0, 0);    
         }
 
         else if(dir == 2) //going to sideview
@@ -258,22 +271,26 @@ public class CamManager : MonoBehaviour
                 gameEvents.CallCameraStop();
 
             }
-            StartCoroutine(ToOrtho());
+            transform.position = new Vector3(0, 0, -80);
+            transform.rotation = Quaternion.Euler(0, 0, 0);
         }
-        Time.timeScale = 1.0f;
+        
+        /*gameEvents.CallCameraMoving();
+        if(dir == 2)
+        {
+            viewState = ViewState.Side;
+        }
+        else
+        {
+            viewState = ViewState.Front;
+        }*/
+        gameEvents.CallCameraStop();
+        Time.timeScale = curTimeScale;
         SetCamAngleData();
         isOrbiting = false;
-    }
-
-    IEnumerator ToOrtho()
-    {
         yield return null;
     }
 
-    IEnumerator ToPersPec()
-    {
-        yield return null;
-    }
     private void SetCamAngleData()
     {
         camAngleData.x = transform.rotation.eulerAngles.x;

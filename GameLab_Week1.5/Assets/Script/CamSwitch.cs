@@ -19,8 +19,10 @@ public class CamSwitch : MonoBehaviour
         viewState = mainCam.GetComponent<CamManager>().GetViewState();
         if(viewState == CamManager.ViewState.Front)
         {
-            mainCam.enabled = true;
-            firstViewCam.enabled = false;
+            mainCam.transform.position = new Vector3(-80, 0, 0);
+            mainCam.transform.rotation = Quaternion.Euler(0, 90, 0);
+            mainCam.rect = new Rect(0.1f, 0.15f, 0.6f, 0.7f);
+            firstViewCam.rect = new Rect(0.725f, 0.15f, 0.25f, 0.25f);
         }
     }
     void OnCameraStop(GameEvents gameEvents)
@@ -28,13 +30,15 @@ public class CamSwitch : MonoBehaviour
         viewState = mainCam.GetComponent<CamManager>().GetViewState();
         if(viewState == CamManager.ViewState.Top || viewState == CamManager.ViewState.Side)
         {
-            mainCam.enabled = true;
-            firstViewCam.enabled = false;
+            mainCam.rect = new Rect(0.1f, 0.15f, 0.6f, 0.7f);
+            firstViewCam.rect = new Rect(0.725f, 0.15f, 0.25f, 0.25f);
         }
         else if(viewState == CamManager.ViewState.Front)
         {
-            mainCam.enabled = false;
-            firstViewCam.enabled = true;
+            mainCam.transform.position = new Vector3(0, 0, -80);
+            mainCam.transform.rotation = Quaternion.Euler(0, 0, 0);
+            mainCam.rect = new Rect(0.725f, 0.15f, 0.25f, 0.25f);
+            firstViewCam.rect = new Rect(0.1f, 0.15f, 0.6f, 0.7f);
         }
     }
 }

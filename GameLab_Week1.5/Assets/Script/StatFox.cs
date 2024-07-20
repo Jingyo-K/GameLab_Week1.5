@@ -12,13 +12,14 @@ public class StatFox : MonoBehaviour
     private float verticalInput;
 
     CamManager.ViewState viewState;
+    Quaternion targetRotation;
     void Start()
     {
         viewState = GameObject.FindWithTag("MainCamera").GetComponent<CamManager>().GetViewState();
         GameEvents.CameraStop += OnCameraStop;
         OnCameraStop(null);
     }
-    void Update()
+    void FixedUpdate()
     {
         if(viewState == CamManager.ViewState.Front)
         {
@@ -27,11 +28,14 @@ public class StatFox : MonoBehaviour
             verticalInput = Input.GetAxis("Vertical");
 
             // 기체 이동
-
-            // 기체 회전
-            Quaternion targetRotation = Quaternion.Euler(-horizontalInput * tiltAmount, 0, verticalInput * tiltAmount);
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
+            targetRotation = Quaternion.Euler(-horizontalInput * tiltAmount, 0, verticalInput * tiltAmount);
         }
+        else
+        {
+            targetRotation = Quaternion.Euler(0, 0, 0);
+        }
+
+        transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
     }
 
     public void OnCameraStop(GameEvents gameEvents)
