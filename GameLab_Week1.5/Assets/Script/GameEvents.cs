@@ -13,7 +13,11 @@ public class GameEvents : MonoBehaviour
     public Action<GameEvents> WarningSignal;
     public Action<GameEvents> EpicPatternStart;
     public Action<GameEvents> EpicPatternEnd;
-    public Action<GameEvents> GameOver;
+    public static Action<GameEvents> GameOver;
+    public static Action<GameEvents> ItemCollected;
+    public static Action<GameEvents> PlayerHPChange; 
+    public static Action<GameEvents> BossStart;
+    public static Action<GameEvents> BossEnd;
 
     public void CallOnGameStart()
     {
@@ -58,5 +62,21 @@ public class GameEvents : MonoBehaviour
     public void CallOnGameOver()
     {
         GameOver?.Invoke(this);
+    }
+    public void CallOnItemCollected()
+    {
+        ItemCollected?.Invoke(this);
+    }
+    public void CallOnPlayerHPChange()
+    {
+        PlayerHPChange?.Invoke(this);
+    }
+    public void CallBossStart()
+    {
+        BossStart?.Invoke(this);
+    }
+    public void CallBossEnd()
+    {
+        BossEnd?.Invoke(this);
     }
 }

@@ -19,6 +19,7 @@ public class WallManger : MonoBehaviour
         MakeWall();
         MakeTransparent();
         StartCoroutine(RoopMakeWall());
+        GameEvents.GameOver += OnGameOver;
     }
 
     // Update is called once per frame
@@ -29,14 +30,14 @@ public class WallManger : MonoBehaviour
 
     void MakeWall()
     {
-        Vector3 wallPos = new Vector3(wallSize*5, 0, 0);
+        Vector3 wallPos = new Vector3(wallSize*10f, 0, 0);
 
-        /*
-        GameObject PxWall = Instantiate(wallPrefab, wallPos, Quaternion.Euler(0,0,90));
+        /*GameObject PxWall = Instantiate(transParent, wallPos, Quaternion.Euler(0,0,90));
         PxWall.transform.localScale = new Vector3(wallSize, 1, wallSize);
         PxWall.transform.parent = transform;
+        PxWall.tag = "Wall";*/
 
-        wallPos = new Vector3(-wallSize*5, 0, 0);
+        /*wallPos = new Vector3(-wallSize*5, 0, 0);
         GameObject NxWall = Instantiate(wallPrefab, wallPos, Quaternion.Euler(0,0,-90));
         NxWall.transform.localScale = new Vector3(wallSize, 1, wallSize);
         NxWall.transform.parent = transform;
@@ -123,7 +124,17 @@ public class WallManger : MonoBehaviour
         GameObject NyWall = Instantiate(wallPrefab, wallPos, Quaternion.Euler(0,0,0));
         NyWall.transform.localScale = new Vector3(wallSize*10, 1, wallSize);
         NyWall.transform.parent = transform;
-        yield return new WaitForSeconds(wallSize*2);
+        yield return new WaitForSeconds(wallSize*1.999f);
         }
+    }
+
+    void OnGameOver(GameEvents gameEvents)
+    {
+        StopAllCoroutines();
+        gameObject.SetActive(false);
+    }
+    void OnDestroy()
+    {
+        GameEvents.GameOver -= OnGameOver;
     }
 }

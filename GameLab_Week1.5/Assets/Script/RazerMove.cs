@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class RazerMove : MonoBehaviour
 {
-    [SerializeField] private float speed = 1f;
+    [SerializeField] private float speed = 0.5f;
     // Update is called once per frame
     void FixedUpdate()
     {

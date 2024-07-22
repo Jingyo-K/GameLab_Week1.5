@@ -9,9 +9,13 @@ public class RazerGen : MonoBehaviour
     public GameObject Yrazer;
     public GameObject Zrazer;
     public GameObject player;
+    public float genCoolTime = 5.0f;
     void Start()
     {
         GameEvents.CameraStop += OnCameraStop;
+        GameEvents.GameOver += OnGameOver;
+        GameEvents.BossStart += OnBossStart;
+        GameEvents.BossEnd += OnBossEnd;
         viewState = GameObject.FindWithTag("MainCamera").GetComponent<CamManager>().GetViewState();
         StartCoroutine(RoopMakeRazer());
     }
@@ -31,7 +35,6 @@ public class RazerGen : MonoBehaviour
     {
         int randDir = Random.Range(0, 2);
         float randY;
-        float randZ;
         Vector3 razerPos;
         while(true)
         {
@@ -78,7 +81,30 @@ public class RazerGen : MonoBehaviour
                 GameObject razer = Instantiate(Zrazer, razerPos, Quaternion.identity);
                 razer.transform.parent = transform;
             }
-            yield return new WaitForSeconds(1.5f);
+            yield return new WaitForSeconds(genCoolTime);
         }
+    }
+
+    void OnGameOver(GameEvents gameEvents)
+    {
+        StopAllCoroutines();
+        gameObject.SetActive(false);
+    }
+
+    void OnBossStart(GameEvents gameEvents)
+    {
+        StopAllCoroutines();
+    }
+
+    void OnBossEnd(GameEvents gameEvents)
+    {
+        StartCoroutine(RoopMakeRazer());
+    }
+    void OnDestroy()
+    {
+        GameEvents.CameraStop -= OnCameraStop;
+        GameEvents.GameOver -= OnGameOver;
+        GameEvents.BossStart -= OnBossStart;
+        GameEvents.BossEnd -= OnBossEnd;
     }
 }

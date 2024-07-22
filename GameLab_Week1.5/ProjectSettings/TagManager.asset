@@ -6,15 +6,19 @@ TagManager:
   tags:
   - Enemy
   - Wall
+  - Item
+  - EpicEnemy
+  - Razer
+  - Boss
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Magnetic
   - Water
   - UI
-  - 
-  - 
+  - enemy
+  - Razer
   - 
   - 
   - 

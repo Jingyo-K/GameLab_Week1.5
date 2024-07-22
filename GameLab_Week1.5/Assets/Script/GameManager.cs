@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     public GameEvents gameEvents;
     public CamManager camManager;
     public PlayerControl playerControl;
+    public GameObject GameOverUI;
 
     private void Awake()
     {
@@ -26,5 +27,16 @@ public class GameManager : MonoBehaviour
         gameEvents = GetComponent<GameEvents>();
         camManager = GameObject.FindWithTag("MainCamera").GetComponent<CamManager>();
         playerControl = GameObject.FindWithTag("Player").GetComponent<PlayerControl>();
+        gameEvents.CallOnItemCollected();
+        GameEvents.GameOver += OnGameOver;
+    }
+
+    void OnGameOver(GameEvents gameEvents)
+    {
+        GameOverUI.SetActive(true);
+    }
+    void OnDestroy()
+    {
+        GameEvents.GameOver -= OnGameOver;
     }
 }
