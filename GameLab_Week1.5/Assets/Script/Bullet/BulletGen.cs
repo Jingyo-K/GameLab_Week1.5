@@ -24,6 +24,7 @@ public class BulletGen : MonoBehaviour
         camManager = GameObject.FindWithTag("MainCamera").GetComponent<CamManager>();
         viewState = camManager.GetViewState();
         GameEvents.CameraStop += OnCameraStop;
+        GameEvents.GameOver += OnGameOver;
     }
 
     // Update is called once per frame
@@ -161,9 +162,23 @@ public class BulletGen : MonoBehaviour
     {
         viewState = camManager.GetViewState();
     }
+    void OnGameOver(GameEvents gameEvents)
+    {
+        bulletRapid = 0.3f;
+        bulletPower = 1;
+        bulletCount = 1;
+        rapidLV = 1;
+        powerLV = 1;
+        countLV = 1;
+    }
     public void stop()
     {
         StopCoroutine(_runningCoroutine);
+    }
+    void OnDestroy()
+    {
+        GameEvents.CameraStop -= OnCameraStop;
+        GameEvents.GameOver -= OnGameOver;
     }
 }
 

@@ -108,6 +108,7 @@ public class PatternMaker : MonoBehaviour
     {
         StopAllCoroutines();
         stageLevel = 1;
+        patternCount = 0;
         Time.timeScale = 1.0f;
     }
 
